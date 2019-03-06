@@ -14,4 +14,16 @@ export class UserService {
                 .catch((err) => reject(err));
         });
     }
+
+    getUserImeges(id) {
+        const http = new Http();
+
+        return new Promise((resolve, reject) => {
+            http.get(`${ENV.apiUrl}/public/users/my-images/${id}`)
+                .then((response) => {
+                    resolve(response);
+                })
+                .catch((err) => reject(err));
+        });
+    }
 }

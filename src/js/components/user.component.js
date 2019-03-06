@@ -9,11 +9,18 @@ export class UserComponent {
         this._userService = new UserService();
 
         this._authUserId = this._authService.userId;
-        this._activeUserId = this._activeRoute.parseRequestURL().id;
+        this._activeUserId;
         this._user;
+        this._userImages = [];
+        this._imagesTemplate;
     }
     async beforeRender() {
+        this._activeUserId = this._activeRoute.parseRequestURL().id;
+
         this._user = await this._userService.getUser(this._activeUserId);
+        this._userImages = await this._userService.getUserImeges(this._activeUserId);
+
+        this._imagesTemplate = this._userImages.images.map((image) => this.__singleImageTemplate(image));
     }
     render() {
         return `
@@ -29,6 +36,11 @@ export class UserComponent {
             <div class="user-avatar-container d-flex justify-content-center">
                 <div class="user-avatar">
                     <img src="${this._user.avatar}">
+                </div>
+            </div>
+            <div class="images-container container">
+                <div class="row">
+                    ${this._imagesTemplate.join('')}
                 </div>
             </div>
         `;
@@ -51,6 +63,52 @@ export class UserComponent {
                 border-radius: 50%;
                 overflow: hidden;
             }
+            .img-item {
+                height: 200px;
+                text-align: center;
+                overflow: hidden;
+                background-color: #000;
+                margin-bottom: 30px;
+                position: relative;
+            }
+            .img-item img {
+                height: 100%;
+                max-width: none;
+            }
+            .img-item-hover {
+                opasity: 0;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                color: #fff;
+                background: rgba(0, 0, 0, .5);
+                transition: all .3 ease-in;
+            }
+            .img-item:hovet .img-item-hover {
+                opasity: 1;
+            }
+        `;
+    }
+
+    _singleImageTemplate(image) {
+        return `
+            <div class="col col-4">
+                <div class="img-item">
+                    <img src="${image.url}">
+                    <div class="img-item-hover">
+                        <span>
+                            <i class="fas fa-eye"></i>
+                            ${image.views.length}
+                        </span>
+                        <span>
+                            <i class="fas fa-thumbs-up"></i>
+                            ${image.likes.length}
+                        </span>
+                    </div>
+                </div>
+            </div>
         `;
     }
     afterRender() {

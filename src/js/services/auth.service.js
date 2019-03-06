@@ -12,6 +12,10 @@ export class AuthService {
     get userId() {
         return localStorage.getItem('sn_user_id');
     }
+
+    get isSubscribed() {
+        return false;
+    }
     
     //the method makes a post request and transfers data from the login form (email and password)
     login(email, password) {
@@ -40,6 +44,15 @@ export class AuthService {
                     resolve(response);
                 })
                 .catch((err) => reject(err));
+        });
+    }
+
+    logout() {
+        return new Promise((resolve, reject) => {
+            localStorage.removeItem('sn_user_id');
+            localStorage.removeItem('sn_user_token');
+
+            resolve();
         });
     }
 }
