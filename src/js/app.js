@@ -5,6 +5,7 @@ import { SingUpComponent   } from './components/singup.component';
 import { NewsComponent     } from './components/news.component';
 import { PaymentComponent  } from './components/payment.component';
 import { NavbarComponent   } from './components/navbar.component';
+import { WinnersComponent  } from './components/winners.component';
 import { NotFoundComponent } from './components/notfound.component';
 
 import { ActiveRoute       } from './core/active.route.service';
@@ -35,7 +36,7 @@ const routes = {
         guard: [authGuard]
     },
     '/winners': {
-        component: new Winners()
+        component: new WinnersComponent()
     },
     '/payment': {
         component: new PaymentComponent(),

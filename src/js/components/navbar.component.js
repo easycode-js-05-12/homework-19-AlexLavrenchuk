@@ -33,6 +33,10 @@ export class NavbarComponent {
                 <li class="nav-item ml-3">
                     <a class="nav-link" href="/#/news">News</a>
                 </li>
+                
+                <li class="nav-item ml-3">
+                    <a class="nav-link" href="/#/winners">Winners</a>
+                </li>
 
             </ul>
             <button class="btn btn-primary logout-btn">Logout</button>
