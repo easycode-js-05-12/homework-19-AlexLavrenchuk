@@ -39,6 +39,9 @@ export class WinnersComponent {
             }
             .title img {
                 width: 100%
+            }
+            .img-item img {
+                max-width: 100%;
             }   
         `;
     }
